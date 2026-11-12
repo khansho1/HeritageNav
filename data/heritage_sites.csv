@@ -1,0 +1,5 @@
+
+site,city,state,description,landmarks,latitude,longitude
+Taj Mahal,Agra,Uttar Pradesh,"A white marble mausoleum commissioned by Mughal emperor Shah Jahan.","Main Gate;Main Mausoleum;Gardens;Mosque",27.1751,78.0421
+Red Fort,Delhi,Delhi,"A historic fort that served as a residence of Mughal emperors.","Lahori Gate;Diwan-i-Aam;Diwan-i-Khas;Museum",28.6562,77.2410
+Gateway of India,Mumbai,Maharashtra,"A famous monument overlooking the Arabian Sea in Mumbai.","Main Arch;Waterfront;Taj Mahal Palace View",18.9220,72.8347

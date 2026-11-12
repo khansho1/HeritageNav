@@ -1,0 +1,13 @@
+
+site,sequence,landmark,latitude,longitude,instruction,distance_from_previous_km
+Taj Mahal,1,Main Gate,27.1730,78.0421,Start at the main entrance,0
+Taj Mahal,2,Main Mausoleum,27.1751,78.0421,Proceed towards the main mausoleum,0.3
+Taj Mahal,3,Gardens,27.1741,78.0410,Explore the central gardens,0.2
+Taj Mahal,4,Mosque,27.1750,78.0390,Continue towards the mosque area,0.3
+Red Fort,1,Lahori Gate,28.6562,77.2410,Start at Lahori Gate,0
+Red Fort,2,Diwan-i-Aam,28.6558,77.2400,Proceed to the Hall of Public Audience,0.3
+Red Fort,3,Diwan-i-Khas,28.6548,77.2405,Continue to the Hall of Private Audience,0.2
+Red Fort,4,Museum,28.6542,77.2412,Explore the museum area,0.2
+Gateway of India,1,Main Arch,18.9220,72.8347,Start at the main arch,0
+Gateway of India,2,Waterfront,18.9208,72.8342,Walk towards the waterfront,0.2
+Gateway of India,3,Palace View,18.9210,72.8330,Continue to the palace viewing area,0.2
