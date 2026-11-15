@@ -1,8 +1,8 @@
 
 import streamlit as st
+import html
 
 from components import setup_page, page_footer
-
 from database import (
     add_site,
     get_sites,
@@ -11,13 +11,70 @@ from database import (
 )
 
 
-setup_page("Manage Heritage Sites")
+def display_html_table(records):
+    """Display a list of dictionaries as a safe HTML table."""
 
+    if not records:
+        st.info("No sites available.")
+        return
+
+    headers = list(records[0].keys())
+
+    header_html = "".join(
+        f"<th>{html.escape(str(header))}</th>"
+        for header in headers
+    )
+
+    rows_html = ""
+
+    for record in records:
+        cells = "".join(
+            f"<td>{html.escape(str(record.get(header, '')))}</td>"
+            for header in headers
+        )
+
+        rows_html += f"<tr>{cells}</tr>"
+
+    table_html = f"""
+    <style>
+        .heritage-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }}
+        .heritage-table th {{
+            background-color: #183D2D;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }}
+        .heritage-table td {{
+            padding: 12px;
+            border-bottom: 1px solid #E8E0D0;
+            color: #26352D;
+        }}
+        .heritage-table tr:nth-child(even) {{
+            background-color: #F1EEE6;
+        }}
+    </style>
+
+    <div style="overflow-x:auto;">
+        <table class="heritage-table">
+            <thead><tr>{header_html}</tr></thead>
+            <tbody>{rows_html}</tbody>
+        </table>
+    </div>
+    """
+
+    st.html(table_html)
+
+
+# PAGE SETUP
+setup_page("Manage Heritage Sites")
 st.title("Manage Heritage Sites")
 
 
-# CREATE
-
+# 1. ADD HERITAGE SITE
 st.subheader("1. Add Heritage Site")
 
 with st.form("add_site_form"):
@@ -36,19 +93,16 @@ with st.form("add_site_form"):
             add_site(name, city, state, description)
 
             st.success("Site added successfully!")
-
             st.rerun()
 
         else:
-
             st.error("Please fill all required fields.")
 
 
 st.divider()
 
 
-# READ
-
+# 2. VIEW HERITAGE SITES
 st.subheader("2. View Heritage Sites")
 
 sites = get_sites()
@@ -61,26 +115,21 @@ if sites:
             "Name": site[1],
             "City": site[2],
             "State": site[3],
-            "Description": site[4]
+            "Description": site[4] or ""
         }
         for site in sites
     ]
 
-    st.dataframe(
-        display_data,
-        use_container_width=True
-    )
+    display_html_table(display_data)
 
 else:
-
     st.info("No sites available.")
 
 
 st.divider()
 
 
-# UPDATE
-
+# 3. UPDATE HERITAGE SITE
 st.subheader("3. Update Heritage Site")
 
 if sites:
@@ -138,19 +187,16 @@ if sites:
                 )
 
                 st.success("Site updated!")
-
                 st.rerun()
 
             else:
-
                 st.error("Name, city and state are required.")
 
 
 st.divider()
 
 
-# DELETE
-
+# 4. DELETE HERITAGE SITE
 st.subheader("4. Delete Heritage Site")
 
 sites = get_sites()
@@ -177,11 +223,9 @@ if sites:
             delete_site(delete_options[selected_delete])
 
             st.success("Site deleted!")
-
             st.rerun()
 
         else:
-
             st.warning("Please confirm before deleting.")
 
 
